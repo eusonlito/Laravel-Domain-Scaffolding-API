@@ -10,6 +10,11 @@ use Throwable;
 class Curl
 {
     /**
+     * @var ?string
+     */
+    protected static ?string $fake = null;
+
+    /**
      * @var \CurlHandle
      */
     protected CurlHandle $curl;
@@ -160,6 +165,16 @@ class Curl
     public static function new(): self
     {
         return new static(...func_get_args());
+    }
+
+    /**
+     * @param ?string $fake = null
+     *
+     * @return void
+     */
+    public static function fake(?string $fake = null): void
+    {
+        static::$fake = $fake;
     }
 
     /**
@@ -661,7 +676,7 @@ class Curl
         $this->sendUrl();
         $this->sendPost();
 
-        $response = curl_exec($this->curl);
+        $response = static::$fake ?? curl_exec($this->curl);
 
         $this->info = curl_getinfo($this->curl);
         $this->responseHeaders = [];

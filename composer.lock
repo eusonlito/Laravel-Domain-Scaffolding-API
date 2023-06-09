@@ -4,77 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "139ada8d49127f16047d72ec47560e94",
+    "content-hash": "c7cc0444572ddfc28cb3947a88df0244",
     "packages": [
-        {
-            "name": "arthurkushman/php-wss",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/arthurkushman/php-wss.git",
-                "reference": "928ca59a6ae62d05933d28b78b370e7e3a673881"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/arthurkushman/php-wss/zipball/928ca59a6ae62d05933d28b78b370e7e3a673881",
-                "reference": "928ca59a6ae62d05933d28b78b370e7e3a673881",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.4"
-            },
-            "require-dev": {
-                "monolog/monolog": "^1.24",
-                "phpbench/phpbench": "^1.2",
-                "phpstan/phpstan": "^1.4",
-                "phpunit/phpunit": "^9"
-            },
-            "suggest": {
-                "ext-pcntl": "Allows for forking the server process to handle more clients at once"
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "WSSC\\": "src",
-                    "WSSCTEST\\": "tests"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Web-socket server/client with URI parse and multi-process support",
-            "homepage": "https://github.com/arthurkushman/php-wss",
-            "keywords": [
-                "php",
-                "processes",
-                "routes",
-                "web socket",
-                "web socket client",
-                "web socket server",
-                "web-sockets"
-            ],
-            "support": {
-                "issues": "https://github.com/arthurkushman/php-wss/issues",
-                "source": "https://github.com/arthurkushman/php-wss/tree/master"
-            },
-            "funding": [
-                {
-                    "url": "https://issuehunt.io/r/arthurkushman",
-                    "type": "issuehunt"
-                },
-                {
-                    "url": "https://liberapay.com/arthurkushman",
-                    "type": "liberapay"
-                },
-                {
-                    "url": "https://www.patreon.com/user?u=26175584",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2023-04-24T17:30:16+00:00"
-        },
         {
             "name": "brick/math",
             "version": "0.11.0",
@@ -1855,16 +1786,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.13.2",
+            "version": "v10.13.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "fd4619b56b56308e2c2c1840fedd0b8ebb73dfc5"
+                "reference": "03106ae9ba2ec4b36dc973b7bdca6fad81e032b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/fd4619b56b56308e2c2c1840fedd0b8ebb73dfc5",
-                "reference": "fd4619b56b56308e2c2c1840fedd0b8ebb73dfc5",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/03106ae9ba2ec4b36dc973b7bdca6fad81e032b4",
+                "reference": "03106ae9ba2ec4b36dc973b7bdca6fad81e032b4",
                 "shasum": ""
             },
             "require": {
@@ -2051,7 +1982,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-06-05T15:48:15+00:00"
+            "time": "2023-06-08T20:25:36+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -13373,9 +13304,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "arthurkushman/php-wss": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -46,7 +46,7 @@ class Debug extends ServiceProvider
      */
     protected function loggingDatabase(): void
     {
-        LoggerDatabase::new()->listen();
+        LoggerDatabase::listen();
     }
 
     /**

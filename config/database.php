@@ -51,6 +51,7 @@ return [
             'options' => [],
             'log' => (bool)env('DB_LOG', false),
             'log_backtrace' => (bool)env('DB_LOG_BACKTRACE'),
+            'log_slow' => (int)env('DB_LOG_SLOW'),
         ],
 
         'test' => [
@@ -70,6 +71,7 @@ return [
             'options' => [],
             'log' => false,
             'log_backtrace' => false,
+            'log_slow' => false,
         ],
     ],
 
