@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+    LDS-API-mysql:
+        image: mysql:8.0
+        container_name: LDS-API-mysql
+        restart: unless-stopped
+        volumes:
+            - ./../storage/docker/db:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_USER=LDS-API
+            - MYSQL_PASSWORD=LDS-API
+            - MYSQL_DATABASE=LDS-API
+        command:
+            - --character-set-server=utf8
+            - --collation-server=utf8_unicode_ci
+        networks:
+            - LDS-API-network
+        healthcheck:
+            test: mysqladmin ping -h localhost --password=root
+            interval: 15s
+            retries: 15
+
+    LDS-API-redis:
+        image: redis:7.0
+        container_name: LDS-API-redis
+        restart: unless-stopped
+        networks:
+            - LDS-API-network
+        healthcheck:
+            test: redis-cli ping
+            interval: 5s
+            retries: 15
+
+    LDS-API:
+        image: LDS-API:latest
+        container_name: LDS-API
+        restart: unless-stopped
+        depends_on:
+            LDS-API-mysql:
+                condition: service_healthy
+            LDS-API-redis:
+                condition: service_healthy
+        build:
+            context: ..
+            dockerfile: ./docker/Dockerfile
+        ports:
+            - "8080:80"
+        expose:
+            - "8080"
+        networks:
+            - LDS-API-network
+        tty: true
+
+networks:
+  LDS-API-network:
+    driver: bridge

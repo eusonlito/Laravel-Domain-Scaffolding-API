@@ -1,0 +1,132 @@
+{
+    "name": "eusonlito/LDS-API",
+    "type": "project",
+    "description": "LDS-API",
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "composer/composer": "^2.5.1",
+        "eusonlito/disposable-email-validator": "^0.1.9",
+        "laravel/framework": "^10.0",
+        "laravel/helpers": "^1.6",
+        "lcobucci/jwt": "^5.0",
+        "predis/predis": "^2.1.1",
+        "sentry/sentry-laravel": "^3.2"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.14.3",
+        "laravel/pint": "^1.4.1",
+        "nunomaduro/collision": "^7.0",
+        "nunomaduro/larastan": "^2.4",
+        "nunomaduro/phpinsights": "^2.8",
+        "phpunit/phpunit": "^10.0",
+        "psalm/plugin-laravel": "^2.7",
+        "vimeo/psalm": "^5.6"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "php-http/discovery": true
+        }
+    },
+    "autoload": {
+        "classmap": [
+            "database/migrations"
+        ],
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\": "database/"
+        },
+        "files": [
+            "app/Services/Helper/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "scripts": {
+        "post-install-cmd": [
+            "@composer dump-autoload",
+            "@composer artisan-cache --ansi"
+        ],
+
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+
+        "artisan-cache-clear": [
+            "@php artisan optimize:clear --ansi"
+        ],
+
+        "artisan-cache": [
+            "@php artisan optimize --ansi"
+        ],
+
+        "artisan-websocket-start-daemon": [
+            "@php artisan websocket:start:daemon --reset || true"
+        ],
+
+        "env-version": [
+            "sed -i 's/CACHE_VERSION=.*/CACHE_VERSION='$(head -c 16 /dev/urandom | md5sum | head -c 32)'/' .env"
+        ],
+
+        "deploy": [
+            "rm -f bootstrap/cache/*.php",
+            "git checkout .",
+            "git pull",
+            "@composer env-version --ansi",
+            "@composer install --no-dev --optimize-autoloader --classmap-authoritative --ansi",
+            "@php artisan migrate --force --ansi",
+            "@php artisan db:seed --force --ansi --class=\"Database\\Seeders\\Database\"",
+            "@php artisan maintenance:migration:clean",
+            "@php artisan queue:restart --ansi"
+        ],
+
+        "deploy-dev": [
+            "rm -f bootstrap/cache/*.php",
+            "@composer install --optimize-autoloader --classmap-authoritative --ansi",
+            "@php artisan migrate --force --ansi",
+            "@php artisan db:seed --class=\"Database\\Seeders\\Database\"",
+            "@php artisan maintenance:migration:clean",
+            "@composer artisan-cache-clear",
+            "@php artisan queue:restart --ansi"
+        ],
+
+        "deploy-docker": [
+            "rm -f bootstrap/cache/*.php",
+            "@composer install --no-dev --optimize-autoloader --classmap-authoritative --ansi",
+            "@php artisan migrate --force --ansi",
+            "@php artisan db:seed --class=\"Database\\Seeders\\Database\" --force",
+            "@php artisan maintenance:migration:clean",
+            "@php artisan queue:restart --ansi"
+        ],
+
+        "fix": [
+            "@php ./vendor/bin/php-cs-fixer fix -v --ansi",
+            "@php ./vendor/bin/pint -v"
+        ],
+
+        "quality": [
+            "@php artisan insights",
+            "@php ./vendor/bin/phpstan analyse --ansi || true",
+            "@php ./vendor/bin/psalm || true"
+        ],
+
+        "translation": [
+            "@php artisan translation:fix --ansi",
+            "@php artisan translation:fill --ansi",
+            "@php artisan translation:clean --ansi",
+            "@php artisan translation:unused --ansi",
+            "git checkout resources/lang/*/validation.php"
+        ]
+    }
+}
